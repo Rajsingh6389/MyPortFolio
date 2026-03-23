@@ -1,0 +1,203 @@
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════ */
+@keyframes gradShift  { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes orbDrift   { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
+@keyframes cardEntry  { from{opacity:0;transform:translateY(28px) rotateX(-8deg)} to{opacity:1;transform:none} }
+@keyframes shine      { from{transform:translateX(-120%) skewX(-20deg)} to{transform:translateX(230%) skewX(-20deg)} }
+@keyframes topLineIn  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes dotBlink   { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.4)} 50%{opacity:.6;box-shadow:0 0 0 5px transparent} }
+
+/* terminal */
+@keyframes termCursor { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ═══════════════════════════════════════════
+   SECTION
+═══════════════════════════════════════════ */
+.experience {
+  padding: 8rem 5rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: #020205;
+}
+
+.gridBg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(124,109,250,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,109,250,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+.orbA {
+  position: absolute; border-radius: 50%;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(124,109,250,.07), transparent 70%);
+  filter: blur(65px);
+  top: -60px; left: 50%; transform: translateX(-50%);
+  animation: orbDrift 11s ease-in-out infinite;
+  pointer-events: none; z-index: 0;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+.header { text-align: center; margin-bottom: 3rem; position: relative; z-index: 2; }
+
+.heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400; letter-spacing: .03em; line-height: 1;
+  color: #e8e8ff; margin-bottom: .6rem;
+}
+.heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, #7c6dfa, #00d4ff, #a78bfa);
+  background-size: 200% 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradShift 4s ease infinite;
+  filter: drop-shadow(0 0 12px rgba(124,109,250,.5));
+}
+.sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; color: #6868a0; letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════ */
+.cards {
+  display: flex; flex-direction: column; gap: 2rem;
+  position: relative; z-index: 2;
+}
+
+.cardWrap {
+  perspective: 1000px;
+  animation: cardEntry .65s calc(var(--idx, 0) * 0.12s + .1s) both;
+}
+
+.card {
+  background: rgba(255,255,255,.028);
+  border: 1px solid rgba(124,109,250,.12);
+  border-radius: 16px;
+  padding: 2rem 2.2rem;
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(20px);
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: border-color .3s, box-shadow .3s;
+}
+.card:hover {
+  border-color: rgba(124,109,250,.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(124,109,250,.1);
+}
+
+.topLine {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #7c6dfa, #00d4ff, transparent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s ease;
+}
+.card:hover .topLine { transform: scaleX(1); }
+
+.cardGlow {
+  position: absolute; inset: -20px;
+  background: radial-gradient(circle at 30% 30%, rgba(124,109,250,.12), transparent 60%);
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.card:hover .cardGlow { opacity: 1; }
+
+.cardShine {
+  position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.045), transparent);
+  transform: skewX(-20deg); pointer-events: none;
+}
+.card:hover .cardShine { animation: shine .65s ease forwards; }
+
+.bgLabel {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem; font-weight: 400; letter-spacing: .04em;
+  color: rgba(124,109,250,.05);
+  position: absolute; top: .5rem; right: 1.5rem;
+  line-height: 1; user-select: none; pointer-events: none;
+}
+
+/* card head */
+.cardHead {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1.3rem;
+}
+.title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem; font-weight: 700; color: #e8e8ff; margin-bottom: .3rem;
+}
+.sub2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem; color: #00d4ff; letter-spacing: 2px; text-transform: uppercase;
+}
+.statusBadge {
+  display: flex; align-items: center; gap: .45rem;
+  background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.25);
+  padding: .25rem .75rem; border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace; font-size: .55rem; color: #34d399;
+  white-space: nowrap;
+}
+.statusDot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #34d399; animation: dotBlink 1.8s ease infinite;
+}
+
+/* bullet points */
+.points { list-style: none; display: flex; flex-direction: column; gap: .65rem; margin-bottom: 1.2rem; }
+.points li {
+  display: flex; gap: .6rem;
+  font-size: .76rem; color: #6868a0; line-height: 1.85;
+}
+.bullet { color: #7c6dfa; font-size: .65rem; margin-top: .18rem; flex-shrink: 0; }
+.points strong { color: #00d4ff; font-weight: 500; }
+
+/* ═══════════════════════════════════════════
+   MINI TERMINAL (CP animation)
+═══════════════════════════════════════════ */
+.terminal {
+  background: #0d0d17;
+  border: 1px solid rgba(124,109,250,.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1.2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,.4), inset 0 0 30px rgba(124,109,250,.03);
+}
+.termBar {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .45rem .8rem;
+  background: rgba(0,0,0,.4);
+  border-bottom: 1px solid rgba(124,109,250,.1);
+}
+.tDot { width: 9px; height: 9px; border-radius: 50%; }
+.termTitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem; color: rgba(255,255,255,.4);
+  margin-left: .3rem;
+}
+.termBody { padding: .7rem 0; }
+.termLine {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .1rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .66rem; line-height: 1.7;
+}
+.termLno { color: rgba(255,255,255,.18); min-width: 16px; text-align: right; user-select: none; }
+.tt_fn   { color: #61afef; }
+.tt_kw   { color: #c678dd; }
+.tt_str  { color: #98c379; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) { .experience { padding: 6rem 3rem; } }
+@media (max-width: 768px)  { .experience { padding: 5rem 1.5rem; } }
+@media (max-width: 540px)  { .card { transform: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

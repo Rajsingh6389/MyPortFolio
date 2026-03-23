@@ -1,0 +1,63 @@
+.skills { padding: 8rem 5rem; position: relative; z-index: 1; }
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 0;
+}
+.title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1.2rem;
+  margin-top: 3rem;
+}
+.card {
+  background: var(--s1);
+  border: 1px solid rgba(124,109,250,.1);
+  padding: 1.8rem;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,109,250,.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 18px 55px rgba(0,0,0,.5); border-color: rgba(124,109,250,.28); }
+.card:hover::after { opacity: 1; }
+.icon  { font-size: 1.6rem; margin-bottom: 0.9rem; }
+.name  { font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 1.1rem; }
+.tags  { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag {
+  font-size: 0.58rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(124,109,250,.2);
+  color: var(--m);
+  letter-spacing: 0.8px;
+  transition: all 0.25s;
+  cursor: default;
+}
+.tag:hover      { border-color: var(--a1); color: var(--a1); background: rgba(124,109,250,.08); }
+.tagPurple      { border-color: rgba(124,109,250,.2); color: rgba(180,170,255,.7); }
+.tagPurple:hover{ border-color: var(--a1); color: var(--a1); background: rgba(124,109,250,.08); }
+.tagCyan        { border-color: rgba(0,212,255,.2); color: rgba(0,212,255,.65); }
+.tagCyan:hover  { border-color: var(--a2); color: var(--a2); background: rgba(0,212,255,.07); }
+.tagRed         { border-color: rgba(255,107,107,.2); color: rgba(255,107,107,.65); }
+.tagRed:hover   { border-color: var(--a3); color: var(--a3); background: rgba(255,107,107,.07); }
+.tagYellow      { border-color: rgba(255,209,102,.2); color: rgba(255,209,102,.65); }
+.tagYellow:hover{ border-color: var(--a4); color: var(--a4); background: rgba(255,209,102,.07); }
+
+@media (max-width: 1024px) { .skills { padding: 6rem 3rem; } }
+@media (max-width: 768px)  { .skills { padding: 5rem 1.5rem; } }
+@media (max-width: 480px)  { .grid { grid-template-columns: 1fr; } }

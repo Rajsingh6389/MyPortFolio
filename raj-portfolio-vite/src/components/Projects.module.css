@@ -1,0 +1,327 @@
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════ */
+@keyframes gradShift  { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes orbDrift   { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,-30px)} }
+@keyframes cardEntry  { from{opacity:0;transform:translateY(32px) rotateX(-10deg)} to{opacity:1;transform:none} }
+@keyframes shine      { from{transform:translateX(-120%) skewX(-20deg)} to{transform:translateX(230%) skewX(-20deg)} }
+@keyframes scanMove   { 0%, 100% { top: 10%; opacity: 0.8; } 50% { top: 85%; opacity: 1; } }
+@keyframes pulseGlow  { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ═══════════════════════════════════════════
+   SECTION SHELL
+═══════════════════════════════════════════ */
+.projects {
+  padding: 8rem 5rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: #020205;
+}
+
+.gridBg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(124,109,250,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,109,250,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+
+.orbA {
+  position: absolute; border-radius: 50%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(124,109,250,.08), transparent 70%);
+  filter: blur(70px);
+  top: -100px; right: -80px;
+  animation: orbDrift 12s ease-in-out infinite;
+  pointer-events: none; z-index: 0;
+}
+.orbB {
+  position: absolute; border-radius: 50%;
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(0,212,255,.06), transparent 70%);
+  filter: blur(55px);
+  bottom: 8%; left: 5%;
+  animation: orbDrift 9s ease-in-out infinite reverse;
+  pointer-events: none; z-index: 0;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+.header { text-align: center; margin-bottom: 4rem; position: relative; z-index: 2; }
+
+.heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400; letter-spacing: 0.03em; line-height: 1;
+  color: #e8e8ff; margin-bottom: .6rem;
+}
+.heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, #7c6dfa 0%, #00d4ff 50%, #a78bfa 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradShift 4s ease infinite;
+  filter: drop-shadow(0 0 14px rgba(124,109,250,.5));
+}
+.subHead {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; color: #6868a0;
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   GRID
+═══════════════════════════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  position: relative; z-index: 2;
+}
+
+.cardOuter {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* ═══════════════════════════════════════════
+   PROJECT CARD
+═══════════════════════════════════════════ */
+.card {
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 20px;
+  padding: 2.2rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  animation: cardEntry .7s calc(var(--idx, 0) * 0.1s + .1s) both;
+}
+
+.card:hover {
+  border-color: var(--accent, rgba(124,109,250,.3));
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.5),
+    0 0 40px var(--glow, rgba(124,109,250,.1));
+}
+
+.cardGlow {
+  position: absolute; inset: -20px;
+  background: radial-gradient(circle at 50% 50%, var(--glow, rgba(124,109,250,.12)), transparent 70%);
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.card:hover .cardGlow { opacity: 1; }
+
+.cardShine {
+  position: absolute; top: 0; left: -130%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent);
+  transform: skewX(-20deg); pointer-events: none;
+}
+.card:hover .cardShine { animation: shine .6s ease forwards; }
+
+.topBorder {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, #7c6dfa), transparent);
+  opacity: 0; transition: opacity .35s;
+}
+.card:hover .topBorder { opacity: 1; }
+
+.bgNum {
+  position: absolute; top: -1rem; right: -0.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem; font-weight: 900;
+  color: rgba(255,255,255,.03);
+  line-height: 1; user-select: none; pointer-events: none;
+  z-index: 0;
+}
+
+.cardHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.2rem; position: relative; z-index: 1;
+}
+
+.type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem; color: var(--accent, #7c6dfa);
+  letter-spacing: 2px; text-transform: uppercase;
+  background: var(--glow, rgba(124,109,250,.1));
+  padding: .2rem .6rem; border-radius: 4px;
+}
+
+.themeBadge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .65rem; color: #fff; opacity: .7;
+}
+
+.title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem; font-weight: 700; color: #fff;
+  margin-bottom: 1.5rem; position: relative; z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   FACE RECOGNITION VISUAL
+═══════════════════════════════════════════ */
+.faceScene {
+  width: 100%; height: 180px;
+  background: rgba(0,0,0,.3);
+  border-radius: 12px;
+  position: relative; overflow: hidden;
+  margin-bottom: 1.8rem;
+  border: 1px solid rgba(0,212,255,.1);
+}
+
+.faceGrid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(0,212,255,.15) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.faceSvg {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px; height: 105px;
+  filter: drop-shadow(0 0 10px rgba(0,212,255,.3));
+}
+
+.corner {
+  position: absolute; width: 12px; height: 12px;
+  border: 2px solid rgba(0,212,255,.6);
+}
+.cTL { top: 25px; left: 45px; border-right: none; border-bottom: none; }
+.cTR { top: 25px; right: 45px; border-left: none; border-bottom: none; }
+.cBL { bottom: 25px; left: 45px; border-right: none; border-top: none; }
+.cBR { bottom: 25px; right: 45px; border-left: none; border-top: none; }
+
+.scanBeam {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,.8), transparent);
+  box-shadow: 0 0 15px rgba(0,212,255,.5);
+  animation: scanMove 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.faceLabel {
+  position: absolute; bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .55rem; color: #00d4ff;
+  background: rgba(0,0,0,.6);
+  padding: .2rem .6rem; border-radius: 4px;
+  display: flex; align-items: center; gap: .4rem;
+  border: 1px solid rgba(0,212,255,.2);
+}
+.faceLabelDot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #00d4ff; box-shadow: 0 0 5px #00d4ff;
+  animation: pulseGlow 1.5s infinite;
+}
+
+/* ═══════════════════════════════════════════
+   JOB PORTAL VISUAL (API terminal)
+═══════════════════════════════════════════ */
+.apiScene {
+  width: 100%; height: 180px;
+  background: #0d0d17;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.8rem;
+  border: 1px solid rgba(124,109,250,.2);
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+}
+
+.apiBar {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .5rem .8rem;
+  background: rgba(0,0,0,.4);
+  border-bottom: 1px solid rgba(124,109,250,.1);
+}
+.apiDot { width: 9px; height: 9px; border-radius: 50%; }
+.apiTitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem; color: rgba(255,255,255,.4);
+  margin-left: .3rem; flex: 1;
+}
+
+.apiBody { padding: .8rem; }
+.apiRow {
+  display: flex; gap: .8rem; margin-bottom: .4rem;
+  font-family: 'JetBrains Mono', monospace; font-size: .65rem;
+}
+.apiMethod { font-weight: 700; width: 45px; }
+.apiPath { color: #abb2bf; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.apiStatus { font-weight: 700; }
+
+/* ═══════════════════════════════════════════
+   POINTS & STACK
+═══════════════════════════════════════════ */
+.points {
+  list-style: none; display: flex; flex-direction: column; gap: .8rem;
+  margin-bottom: 1.8rem; position: relative; z-index: 1;
+}
+.points li {
+  display: flex; gap: .8rem;
+  font-size: .8rem; color: #a1a1aa; line-height: 1.6;
+}
+.bullet { color: var(--accent, #7c6dfa); font-size: .7rem; margin-top: .1rem; flex-shrink: 0; }
+
+.stack {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin-bottom: 2rem; position: relative; z-index: 1;
+}
+.stackTag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .58rem; color: #fff; opacity: .7;
+  background: rgba(255,255,255,.05);
+  padding: .25rem .7rem; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: all 0.3s;
+}
+.card:hover .stackTag { opacity: 1; border-color: var(--accent, rgba(255,255,255,.2)); }
+
+/* ═══════════════════════════════════════════
+   LINK
+═══════════════════════════════════════════ */
+.link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem; font-weight: 700; color: #fff;
+  text-decoration: none; padding: .6rem 1.2rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  transition: all 0.3s;
+  position: relative; z-index: 1;
+}
+
+.link:hover {
+  background: var(--accent, #7c6dfa);
+  border-color: var(--accent, #7c6dfa);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.arrow { transition: transform 0.3s; }
+.link:hover .arrow { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) { .projects { padding: 6rem 3rem; } }
+@media (max-width: 768px)  {
+  .projects { padding: 5rem 1.5rem; }
+  .grid   { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .card { transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

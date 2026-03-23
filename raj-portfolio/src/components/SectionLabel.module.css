@@ -1,0 +1,20 @@
+.label {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--a1);
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.label::before {
+  content: '';
+  display: block;
+  width: 22px; height: 1px;
+  background: var(--a1);
+}
+.center {
+  justify-content: center;
+}
+.center::before { display: none; }

@@ -1,0 +1,88 @@
+.experience { padding: 8rem 5rem; position: relative; z-index: 1; }
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 0;
+}
+.heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--a1), var(--a2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  background: var(--s1);
+  border: 1px solid rgba(124,109,250,.12);
+  padding: 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+  margin-top: 2.5rem;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+.card:hover::before { transform: scaleX(1); }
+.card:hover { transform: translateY(-4px); border-color: rgba(124,109,250,.3); }
+
+.bgLabel {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(124,109,250,.05);
+  position: absolute;
+  top: 0.5rem; right: 1.2rem;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.sub {
+  font-size: 0.62rem;
+  color: var(--a2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.points li {
+  font-size: 0.76rem;
+  color: var(--m);
+  line-height: 1.85;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.points li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--a1);
+  font-size: 0.65rem;
+  top: 0.15rem;
+}
+.points li strong { color: var(--a2); font-weight: 500; }
+
+@media (max-width: 1024px) { .experience { padding: 6rem 3rem; } }
+@media (max-width: 768px)  { .experience { padding: 5rem 1.5rem; } }
