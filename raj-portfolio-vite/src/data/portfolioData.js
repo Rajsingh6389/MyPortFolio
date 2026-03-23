@@ -9,7 +9,7 @@ export const personalInfo = {
   email: 'rm2739159@gmail.com',
   phone: '+91 8287139346',
   linkedin: 'https://linkedin.com/in/raj-singh-8b7457333',
-  github: 'https://github.com/rajsingh',
+  github: 'https://github.com/Rajsingh6389',
   portfolio: 'https://drive.google.com/file/d/10UegMkXzkPHhIu0lciD27nL8LZ8RL5Oz/view?usp=sharing',
   summary:
     'B.Tech IT student at ABES Engineering College with strong hands-on experience in full-stack web development, backend engineering, and applied machine learning.',
