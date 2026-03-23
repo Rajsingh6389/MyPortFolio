@@ -41,7 +41,7 @@ const PinIcon = () => (
 const socialLinks = [
   { icon: <LinkedInIcon />, label: 'LinkedIn', url: personalInfo.linkedin, color: '#0077b5' },
   { icon: <GithubIcon />, label: 'GitHub', url: personalInfo.github, color: '#7c6dfa' },
-  { icon: <GlobeIcon />, label: 'LeetCode', url: 'https://leetcode.com/u/rm2739159/', color: '#ffa116' },
+  { icon: <GlobeIcon />, label: 'LeetCode', url: 'https://leetcode.com/u/rajsingh63/', color: '#ffa116' },
   { icon: <MailIcon />, label: 'Mail', url: `mailto:${personalInfo.email}`, color: '#00d4ff' }
 ];
 
