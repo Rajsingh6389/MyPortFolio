@@ -14,7 +14,7 @@ export const personalInfo = {
   summary:
     'B.Tech IT student at ABES Engineering College with strong hands-on experience in full-stack web development, backend engineering, and applied machine learning.',
   summary2:
-    'Demonstrated problem-solving ability through 410+ LeetCode problems with solid understanding of DSA, system design fundamentals, and scalable application development.',
+    'Demonstrated problem-solving ability through 510+ LeetCode problems with solid understanding of DSA, system design fundamentals, and scalable application development.',
 };
 
 export const education = [
